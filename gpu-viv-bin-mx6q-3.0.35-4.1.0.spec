@@ -23,7 +23,7 @@ BuildArch: armv7l
 Name: gpu-viv-bin-mx6q-3.0.35
 Summary: Vivante graphics binaries
 Url: download.ossystems.com.br/bsp/freescale/source
-Version: 4.0.0
+Version: 4.1.0
 Release: 0
 License: Proprietary
 Group: TODO
