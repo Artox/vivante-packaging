@@ -21,20 +21,28 @@
 # backend can be fb, dfb, wl, x11
 %define backend fb
 
-Name: gpu-viv-bin-mx6q-3.10.17
+# helpful names
+%define base_name gpu-viv-bin-mx6q
+%define baseversion 1.0.0
+%define kernelversion 3.10.17
+
+Name: %{base_name}-%{backend}-%{kernelversion}
 Summary: Vivante graphics binaries
 Url: download.ossystems.com.br/bsp/freescale/source
-Version: 1.0.0
+Version: %{baseversion}
 Release: 0
 License: Proprietary
-Group: TODO
-Source: %{name}-%{version}-%{abi}.bin
+Group: System/Libraries
+Source: %{base_name}-%{kernelversion}-%{baseversion}-%{abi}.bin
+
+# require right kernel driver
+Requires: vivante-drv = 4.6.9p13
 
 # limit package architecture
 %if %abi == "hfp"
-BuildArch: armv7hl
+ExclusiveArch: armv7hl
 %else
-BuildArch: armv7l
+ExclusiveArch: armv7l
 %endif
 
 %description
@@ -57,6 +65,7 @@ T O D O
 
 %package libEGL-devel
 Summary: TODO
+Group: Development/Libraries/C and C++
 %description libEGL-devel
 T O D O
 
@@ -67,6 +76,7 @@ T O D O
 
 %package libGLESv1_CM-devel
 Summary: TODO
+Group: Development/Libraries/C and C++
 %description libGLESv1_CM-devel
 T O D O
 
@@ -77,6 +87,7 @@ T O D O
 
 %package libGLESv2-devel
 Summary: TODO
+Group: Development/Libraries/C and C++
 %description libGLESv2-devel
 T O D O
 
@@ -87,6 +98,7 @@ T O D O
 
 %package libOpenVG-devel
 Summary: TODO
+Group: Development/Libraries/C and C++
 %description libOpenVG-devel
 T O D O
 
@@ -97,12 +109,28 @@ T O D O
 
 %package libOpenCL-devel
 Summary: TODO
+Group: Development/Libraries/C and C++
 %description libOpenCL-devel
 T O D O
 
 %package libVDK
 Summary: TODO
 %description libVDK
+T O D O
+
+%package libVIVANTE
+Summary: TODO
+%description libVIVANTE
+T O D O
+
+%package libGLSLC
+Summary: TODO
+%description libGLSLC
+T O D O
+
+%package libCLC
+Summary: TODO
+%description libCLC
 T O D O
 
 %package demos
@@ -152,7 +180,7 @@ install -v -m755 -d %{buildroot}/usr/include/GLES
 install -v -m644 usr/include/GLES/* %{buildroot}/usr/include/GLES/
 
 # OpenGL-ES 2.0
-install -v -m755 usr/lib/libGLESv2.so.2.0.0 %{buildroot}/usr/lib/
+install -v -m755 usr/lib/libGLESv2-%{backend}.so %{buildroot}/usr/lib/libGLESv2.so.2.0.0
 ln -sv libGLESv2.so.2.0.0 %{buildroot}/usr/lib/libGLESv2.so.2
 
 # OpenGL-ES 2.0 devel
@@ -179,7 +207,7 @@ install -v -m644 usr/include/CL/* %{buildroot}/usr/include/CL/
 install -v -m755 usr/lib/libVDK.so %{buildroot}/usr/lib/
 
 # VIVANTE
-install -v -m755 usr/lib/libVIVANTE-%{backend}.so %{buildroot}/usr/lib/
+install -v -m755 usr/lib/libVIVANTE-%{backend}.so %{buildroot}/usr/lib/libVIVANTE.so
 
 # GLSLC
 install -v -m755 usr/lib/libGLSLC.so %{buildroot}/usr/lib/
@@ -259,6 +287,18 @@ rm -rf *
 %files libVDK
 %defattr(-,root,root)
 /usr/lib/libVDK.so
+
+%files libVIVANTE
+%defattr(-,root,root)
+/usr/lib/libVIVANTE.so
+
+%files libGLSLC
+%defattr(-,root,root)
+/usr/lib/libGLSLC.so
+
+%files libCLC
+%defattr(-,root,root)
+/usr/lib/libCLC.so
 
 %files demos
 %defattr(-,root,root)

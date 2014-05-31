@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MIRROR=http://download.ossystems.com.br/bsp/freescale/source/
+MIRROR=http://downloads.yoctoproject.org/mirror/sources/
 
 fetch() {
 	name=$1
@@ -58,12 +58,16 @@ chksum() {
 }
 
 # 3.0.35 softfloat
-fetch gpu-viv-bin-mx6q-3.0.35-4.0.0.bin 2bb7d2f4bdff79ae99ce0c9fc2540701
+#fetch gpu-viv-bin-mx6q-3.0.35-4.0.0.bin 2bb7d2f4bdff79ae99ce0c9fc2540701
 
 # 3.5.7 softfloat
-fetch gpu-viv-bin-mx6q-3.5.7-1.0.0-sfp.bin ccd12ee3aa6eaeb16e1073ed592b528a
+#fetch gpu-viv-bin-mx6q-3.5.7-1.0.0-sfp.bin ccd12ee3aa6eaeb16e1073ed592b528a
 
 # 3.5.7 hardfloat
-fetch gpu-viv-bin-mx6q-3.5.7-1.0.0-hfp.bin 080225adc7aa61af7bfdab17527e62e3
+#fetch gpu-viv-bin-mx6q-3.5.7-1.0.0-hfp.bin 080225adc7aa61af7bfdab17527e62e3
 
+# 3.10.17 hardfloat
+fetch gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin 8b9c4f6181acf46028e39508a970ecc1
+
+# mark self-extracting packages executable
 chmod +x *.bin
