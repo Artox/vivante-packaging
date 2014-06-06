@@ -34,6 +34,7 @@ Release: 0
 License: Proprietary
 Group: System/Libraries
 Source: %{base_name}-%{kernelversion}-%{baseversion}-%{abi}.bin
+Source1: vivante.rules
 
 # require right kernel driver
 Requires: vivante-drv = 4.6.9p13
@@ -155,6 +156,7 @@ install -v -m755 -d %{buildroot}/usr/{lib,include}
 
 # libGAL
 install -v -m755 usr/lib/libGAL-%{backend}.so %{buildroot}/usr/lib/libGAL.so
+install -v -m644 -D %{SOURCE1} %{buildroot}/etc/udev/rules.d/vivante.rules
 
 # OpenGL
 install -v -m755 usr/lib/libGL.so.1.2 %{buildroot}/usr/lib/
@@ -233,6 +235,7 @@ rm -rf *
 %files libGAL
 %defattr(-,root,root)
 /usr/lib/libGAL.so
+%config /etc/udev/rules.d/vivante.rules
 
 %files libGL
 %defattr(-,root,root)

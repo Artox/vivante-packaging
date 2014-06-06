@@ -14,6 +14,8 @@ do_install() {
 
 	# libGAL
 	install -v -m755 -D usr/lib/libGAL-${BACKEND}.so "${DESTDIR}/usr/lib/libGAL.so"
+	touch "${DESTDIR}/etc/udev/rules.d/vivante.rules"
+	echo "KERNEL=="galcore", GROUP="video", MODE="660"" > "${DESTDIR}/etc/udev/rules.d/vivante.rules"
 
 	# OpenGL
 	install -v -m755 -D usr/lib/libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1.2"
