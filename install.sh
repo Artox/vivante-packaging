@@ -5,7 +5,7 @@
 
 # arguments accepted: basedir backend
 usage() {
-	echo Usage: $0 <basedir> <backend>
+	echo "Usage: $0 <basedir> <backend>"
 }
 
 do_install() {
@@ -83,7 +83,7 @@ do_install() {
 }
 
 # check arguments
-if [ $# != 3 ]; then
+if [ $# != 2 ]; then
 	usage
 	exit 1
 fi
