@@ -13,6 +13,11 @@ architecture=armv7hl
 srcdir=xserver-xorg-video-imx-viv-3.10.17-1.0.0
 if [ ! -d "$srcdir" ]; then
 	tar -xf xserver-xorg-video-imx-viv-3.10.17-1.0.0.tar.gz
+
+        # apply patches
+	patch -d $srcdir -p1 < Werror.patch
+	patch -d $srcdir -p1 < libdrm.patch
+	patch -d $srcdir -p1 < xorg116.patch
 fi
 
 # BUILDING STARTS HERE

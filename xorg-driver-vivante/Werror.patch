@@ -1,0 +1,24 @@
+diff -Naur a/EXA/src/vivante_fbdev/imx_display.c b/EXA/src/vivante_fbdev/imx_display.c
+--- a/EXA/src/vivante_fbdev/imx_display.c	2014-04-02 14:37:09.000000000 +0200
++++ b/EXA/src/vivante_fbdev/imx_display.c	2014-06-07 16:25:26.270000474 +0200
+@@ -956,7 +956,7 @@
+ 		}
+ 
+ 		if (NULL != mode->name) {
+-			free(mode->name);
++			free((char *) mode->name);
+ 		}
+ 		free(mode);
+ 	}
+diff -Naur a/EXA/src/vivante_fbdev/vivante_fbdev_driver.c b/EXA/src/vivante_fbdev/vivante_fbdev_driver.c
+--- a/EXA/src/vivante_fbdev/vivante_fbdev_driver.c	2014-04-02 14:37:35.000000000 +0200
++++ b/EXA/src/vivante_fbdev/vivante_fbdev_driver.c	2014-06-07 16:18:06.180000424 +0200
+@@ -1600,7 +1600,7 @@
+ RestoreSyncFlags(ScrnInfoPtr pScrn)
+ {
+     if(gEnableFbSyncExt) {
+-        char *modeName = "current";
++        const char *modeName = "current";
+         unsigned int fbSync = 0;
+         if(pScrn->currentMode)
+             modeName = pScrn->currentMode->name;
