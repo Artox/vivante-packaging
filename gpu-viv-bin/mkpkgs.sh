@@ -40,7 +40,7 @@ if [ ! -e `mkrpmname fb` ]; then
 		-a $architecture \
 		-d "vivante-drv = 4.6.9p13" \
 		-C dest \
-		usr opt
+		usr opt etc
 
 	rm -Rf dest
 fi
@@ -57,7 +57,7 @@ if [ ! -e `mkrpmname x11` ]; then
 		-a $architecture \
 		-d "vivante-drv = 4.6.9p13" \
 		-C dest \
-		usr
+		usr etc
 
 	rm -Rf dest
 fi
