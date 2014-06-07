@@ -33,7 +33,7 @@ mkdir dest
 
 # pack it
 fpm -s dir -t rpm \
-	-n $name-fb \
+	-n $name \
 	-v $version \
 	--iteration $release \
 	-a $architecture \
