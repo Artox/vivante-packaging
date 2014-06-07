@@ -21,6 +21,10 @@ do_install() {
 	touch "${DESTDIR}/etc/udev/rules.d/vivante.rules"
 	echo "KERNEL=="galcore", GROUP="video", MODE="660"" > "${DESTDIR}/etc/udev/rules.d/vivante.rules"
 
+	# libGAL-devel (HAL)
+	install -v -m755 -d "${DESTDIR}/usr/include/HAL"
+	install -v -m644 usr/include/HAL/* "${DESTDIR}/usr/include/HAL/"
+
 	# OpenGL
 	install -v -m755 -D usr/lib/libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1.2"
 	ln -sv libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1"
@@ -72,6 +76,10 @@ do_install() {
 
 	# VDK
 	install -v -m755 -D usr/lib/libVDK.so "${DESTDIR}/usr/lib/libVDK.so"
+
+	# VDK-devel
+	install -v -m755 -d "${DESTDIR}/usr/include"
+	install -v -m644 usr/include/*vdk*.h "${DESTDIR}/usr/include/"
 
 	# VIVANTE
 	install -v -m755 -D usr/lib/libVIVANTE-${BACKEND}.so "${DESTDIR}/usr/lib/libVIVANTE.so"
