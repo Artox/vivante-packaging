@@ -23,7 +23,7 @@ diff -Naur a/EXA/src/vivante_fbdev/vivante_fbdev_driver.c b/EXA/src/vivante_fbde
          xf86AddDriver(&FBDEV, module, HaveDriverFuncs);
          if(gVivFb)
 -            LoadExtension(&VIVExt, FALSE);
-+            LoadExtensions(VIVExts, ARRAY_SIZE(VIVExts), FALSE);
++            LoadExtensionList(VIVExts, ARRAY_SIZE(VIVExts), FALSE);
  		return (pointer)1;
      } else {
          if (errmaj) *errmaj = LDR_ONCEONLY;
