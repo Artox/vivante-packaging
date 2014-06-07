@@ -69,5 +69,8 @@ chksum() {
 # 3.10.17 hardfloat
 fetch gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin 8b9c4f6181acf46028e39508a970ecc1
 
+# 3.10.17 xorg driver
+fetch xserver-xorg-video-imx-viv-3.10.17-1.0.0.tar.gz 697d9a3fb244eb95eae4207bf2d9c321
+
 # mark self-extracting packages executable
 chmod +x *.bin

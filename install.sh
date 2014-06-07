@@ -23,7 +23,8 @@ do_install() {
 	ln -sv libGL.so.1 "${DESTDIR}/usr/lib/libGL.so"
 
 	# EGL
-	install -v -m755 -D usr/lib/libEGL-${BACKEND}.so "${DESTDIR}/usr/lib/libEGL.so.1"
+	install -v -m755 -D usr/lib/libEGL-${BACKEND}.so "${DESTDIR}/usr/lib/libEGL.so.1.0.0"
+	ln -sv libEGL.so.1.0.0 "${DESTDIR}/usr/lib/libEGL.so.1.0.0"
 
 	# EGL devel
 	ln -sv libEGL.so.1 "${DESTDIR}/usr/lib/libEGL.so"
@@ -81,7 +82,14 @@ do_install() {
 	install -v -m755 -d "${DESTDIR}/opt/viv_samples"
 	cp -rv opt/viv_samples/* "${DESTDIR}/opt/viv_samples/"
 
-	# TODO: DRI, DFB, WL, PKG-CONFIG
+	# DRI, for X11
+	if [ "x${BACKEND}" = "xx11" ]; then
+		install -v -m755 -D usr/lib/dri/vivante_dri.so "${DESTDIR}/usr/lib/dri/vivante_dri.so"
+
+		# the x11 driver is xserver-xorg-video-imx-viv and opensource
+	fi
+
+	# TODO: DFB, WL, PKG-CONFIG
 }
 
 # check arguments
