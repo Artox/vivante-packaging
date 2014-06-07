@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MIRROR=http://downloads.yoctoproject.org/mirror/sources/
 
