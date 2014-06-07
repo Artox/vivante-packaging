@@ -24,7 +24,7 @@ fi
 
 # compile and install it
 mkdir dest
-./build.sh $srcdir dest
+./install.sh $srcdir dest
 
 # pack it
 fpm -s dir -t rpm \
