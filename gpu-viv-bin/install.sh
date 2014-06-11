@@ -19,7 +19,7 @@ do_install() {
 	install -v -m755 -D usr/lib/libGAL-${BACKEND}.so "${DESTDIR}/usr/lib/libGAL.so"
 	mkdir -p "${DESTDIR}/etc/udev/rules.d"
 	touch "${DESTDIR}/etc/udev/rules.d/vivante.rules"
-	echo "KERNEL=="galcore", GROUP="video", MODE="660"" > "${DESTDIR}/etc/udev/rules.d/vivante.rules"
+	echo 'KERNEL=="galcore", GROUP="video", MODE="660"' > "${DESTDIR}/etc/udev/rules.d/vivante.rules"
 
 	# libGAL-devel (HAL)
 	install -v -m755 -d "${DESTDIR}/usr/include/HAL"
