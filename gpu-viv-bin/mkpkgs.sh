@@ -39,6 +39,12 @@ if [ ! -e `mkrpmname fb` ]; then
 		--iteration $release \
 		-a $architecture \
 		-d "vivante-drv = 4.6.9p13" \
+		--provides "libEGL.so.1" \
+		--provides "libGL.so.1" \
+		--provides "libGLESv1_CM.so.1" \
+		--provides "libGLESv2.so.2" \
+		--provides "libOpenCL.so" \
+		--provides "libOpenVG.so" \
 		-C dest \
 		usr opt etc
 
@@ -56,6 +62,12 @@ if [ ! -e `mkrpmname x11` ]; then
 		--iteration $release \
 		-a $architecture \
 		-d "vivante-drv = 4.6.9p13" \
+		--provides "libEGL.so.1" \
+		--provides "libGL.so.1" \
+		--provides "libGLESv1_CM.so.1" \
+		--provides "libGLESv2.so.2" \
+		--provides "libOpenCL.so" \
+		--provides "libOpenVG.so" \
 		-C dest \
 		usr etc
 
