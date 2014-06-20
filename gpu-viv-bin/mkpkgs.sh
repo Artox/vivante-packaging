@@ -1,75 +1,362 @@
-#!/bin/bash
+#!/bin/bash -e
 
-# pkg infos
-name=gpu-viv-bin-mx6q-3.10.17
-version=1.0.0
-release=0
-architecture=armv7hl
+# This script packs vivante bianries into RPMs
 
-# first fetch source if necessary
-../fetch.sh gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin 8b9c4f6181acf46028e39508a970ecc1
-
-# unpack source if necessary
-srcdir=gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp
-if [ ! -d "$srcdir" ]; then
-	sh gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin --auto-accept --force
-fi
-
-# BUILDING STARTS HERE
-
-# rpm name prediction helper function
-mkrpmname() {
-	suffix=$1
-
-	echo "$name-$suffix-$version-$release.$architecture.rpm"
+# arguments accepted: sourcedir backend
+usage() {
+	echo "Usage: $0 <sourcedir> <backend>"
 }
 
-if [ -d dest ]; then
-	rm -Rf dest
+# check arguments
+if [ $# != 2 ]; then
+	usage
+	exit 1
 fi
 
-# FB
-if [ ! -e `mkrpmname fb` ]; then
-	mkdir dest
-	./install.sh $srcdir dest fb
+sourcedir="$1"
+if [ ! -d "$sourcedir" ]; then
+	echo "sourcedir does not exist!"
+	usage
+	exit 1
+fi
 
+viv_backend=$2
+if [ "x$viv_backend" != "xfb" ]; then
+	if [ "x$viv_backend" != "xdfb" ]; then
+		if [ "x$viv_backend" != "xx11" ]; then
+			if [ "x$viv_backend" != "xwl" ]; then
+				if [ "x$viv_backend" != "xnone" ]; then
+					echo Invalid backend \"$viv_backend\"!
+					usage
+					exit 1
+				fi
+			fi
+		fi
+	fi
+fi
+
+# PACKAGING STARTS HERE
+
+# pkg infos
+pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
+pkg_version="1"
+pkg_architecture="armv7hl"
+
+# pkg options
+# viv_backend none fb dfb wl x11
+
+# approach: one package per library
+# some libraries are specific to graphics backend, some aren't
+
+# hack for backend=none to make fpm happy
+if [ "x${viv_backend}" = "xnone" ]; then
+	touch `readlink -f "${sourcedir}/usr/lib/libEGL.so.1"`
+	touch `readlink -f "${sourcedir}/usr/lib/libGLESv2.so"`
+fi
+
+# backend-dependent libraries
+if [ "x${viv_backend}" != "xnone" ]; then
+	# libGAL - Vivante HAL
 	fpm -s dir -t rpm \
-		-n $name-fb \
-		-v $version \
-		--iteration $release \
-		-a $architecture \
+		--name ${pkg_name_prefix}-libGAL-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
 		-d "vivante-drv = 4.6.9p13" \
-		--provides "libEGL.so.1" \
-		--provides "libGL.so.1" \
-		--provides "libGLESv1_CM.so.1" \
-		--provides "libGLESv2.so.2" \
-		--provides "libOpenCL.so" \
-		--provides "libOpenVG.so" \
-		-C dest \
-		usr opt etc
+		--provides "libGAL.so" \
+		--provides "libGAL_${viv_backend}" \
+		--depends "libm.so.6" \
+		--depends "libpthread.so.0" \
+		--depends "libdl.so.2" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGAL.so \
+		etc/udev/rules.d/vivante.rules
 
-	rm -Rf dest
-fi
-
-# X11
-if [ ! -e `mkrpmname x11` ]; then
-	mkdir dest
-	./install.sh $srcdir dest x11
-
+	# libVIVANTE
 	fpm -s dir -t rpm \
-		-n $name-x11 \
-		-v $version \
-		--iteration $release \
-		-a $architecture \
-		-d "vivante-drv = 4.6.9p13" \
-		--provides "libEGL.so.1" \
-		--provides "libGL.so.1" \
-		--provides "libGLESv1_CM.so.1" \
-		--provides "libGLESv2.so.2" \
-		--provides "libOpenCL.so" \
-		--provides "libOpenVG.so" \
-		-C dest \
-		usr etc
+		--name ${pkg_name_prefix}-libVIVANTE-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libVIVANTE.so" \
+		--provides "libVIVANTE_${viv_backend}" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libVIVANTE.so
 
-	rm -Rf dest
+		# libEGL
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libEGL-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libEGL.so.1" \
+		--provides "libEGL_${viv_backend}" \
+		--depends "libGAL.so" \
+		--depends "libGAL_${viv_backend}" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libEGL.so.1
+
+	# libGLESv2
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLESv2-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLESv2.so.2" \
+		--provides "libGLESv2_${viv_backend}" \
+		--depends "libGAL.so" \
+		--depends "libGAL_${viv_backend}" \
+		--depends "libEGL.so.1" \
+		--depends "libEGL_${viv_backend}" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLESv2.so.2
 fi
+
+# backend-independent libraries
+if [ "x${viv_backend}" = "xnone" ]; then
+	# libGLES_CL
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLES_CL \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLES_CL.so" \
+		--depends "libGAL.so" \
+		--depends "libEGL.so.1" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLES_CL.so
+
+	# libGLES_CM
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLES_CM \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLES_CM.so" \
+		--depends "libGAL.so" \
+		--depends "libEGL.so.1" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLES_CM.so
+
+	# libGLESv1_CL
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLESv1_CL \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLESv1_CL.so.1" \
+		--depends "libGAL.so" \
+		--depends "libEGL.so.1" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLESv1_CL.so.1
+
+	# libGLESv1_CM
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLESv1_CM \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLESv1_CM.so.1" \
+		--depends "libGAL.so" \
+		--depends "libEGL.so.1" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLESv1_CM.so.1
+
+# symlink hack
+ln -sfv libOpenVG_3D.so "${sourcedir}/usr/lib/libOpenVG.so"
+	# libOpenVG_3D
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libOpenVG_3D \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libOpenVG.so" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libOpenVG_3D.so \
+		usr/lib/libOpenVG.so
+
+# symlink hack
+ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
+	# libOpenVG_355
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libOpenVG_355 \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libOpenVG.so" \
+		--depends "libGAL.so" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libOpenVG_355.so \
+		usr/lib/libOpenVG.so
+
+	# libOpenCL
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libOpenCL \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libOpenCL.so" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libOpenCL.so
+
+	# libCLC
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libCLC \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libCLC.so" \
+		--depends "libGAL.so" \
+		--depends "libm.so.6" \
+		--depends "libpthread.so.0" \
+		--depends "libstdc++.so.6" \
+		--depends "libdl.so.2" \
+		--depends "librt.so.1" \
+		--depends "libgcc_s.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libCLC.so
+
+	# libGLSLC
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLSLC \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGLSLC.so" \
+		--depends "libGAL.so" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGLSLC.so
+
+	# libCLC
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libVDK \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libVDK.so" \
+		--depends "libm.so.6" \
+		--depends "libpthread.so.0" \
+		--depends "libdl.so.2" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libVDK.so
+fi
+
+# backend-independent development files
+if [ "x${viv_backend}" = "xnone" ]; then
+	# libGAL-devel
+	fpm -s dir -t rpm \
+		-n ${pkg_name_prefix}-libGAL-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libGAL.so" \
+		-C "${sourcedir}" \
+		usr/include/HAL
+
+	# libEGL-devel
+	fpm -s dir -t rpm \
+		-n ${pkg_name_prefix}-libEGL-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libEGL.so.1" \
+		-C "${sourcedir}" \
+		usr/lib/libEGL.so \
+		usr/include/EGL
+
+	# libGLESv1-devel
+	fpm -s dir -t rpm \
+		-n ${pkg_name_prefix}-libGLESv1-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libGLESv1_CL.so.1" \
+		--depends "libGLESv1_CM.so.1" \
+		-C "${sourcedir}" \
+		usr/lib/libGLESv1_CL.so \
+		usr/lib/libGLESv1_CM.so \
+		usr/include/GLES
+
+	# libGLESv2-devel
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGLESv2-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libGLESv2.so.2" \
+		-C "${sourcedir}" \
+		usr/lib/libGLESv2.so \
+		usr/include/GLES2
+
+	# libOpenVG-devel
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libOpenVG-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libOpenVG.so" \
+		-C "${sourcedir}" \
+		usr/include/VG
+
+	# libOpenCL-devel
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libOpenCL-devel \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--depends "libOpenCL.so" \
+		-C "${sourcedir}" \
+		usr/include/CL
+fi
+
+# only for x11 backend
+if [ "x${viv_backend}" = "xx11" ]; then
+	# libGL
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGL-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "libGL.so.1.2" \
+		--depends "libXdamage.so.1" \
+		--depends "libXfixes.so.3" \
+		--depends "libXext.so.6" \
+		--depends "libX11.so.6" \
+		--depends "libpthread.so.0" \
+		--depends "libGAL.so" \
+		--depends "libGAL_${viv_backend}" \
+		--depends "libm.so.6" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/libGL.so.1.2
+
+	# TODO: devel package ... where to get headers? Mesa?
+
+	# DRI
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-dri-${viv_backend} \
+		--version ${pkg_version} \
+		--architecture ${pkg_architecture} \
+		--provides "vivante_dri.so" \
+		--depends "libm.so.6" \
+		--depends "libpthread.so.0" \
+		--depends "libGAL.so" \
+		--depends "libGAL_${viv_backend}" \
+		--depends "libGL.so.1.2" \
+		--depends "libXext.so.6" \
+		--depends "libX11.so.6" \
+		--depends "libdl.so.2" \
+		--depends "librt.so.1" \
+		--depends "libc.so.6" \
+		-C "${sourcedir}" \
+		usr/lib/dri/vivante_dri.so
+fi
+
+# TODO: wayland pkgconfig demos
