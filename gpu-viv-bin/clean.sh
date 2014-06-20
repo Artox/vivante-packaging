@@ -8,9 +8,9 @@ fi
 
 rm -f *.log
 rm -f *.rpm
-rm -Rf deest
+rm -Rf dest
 
 if [ "x$realclean" = "xyes" ]; then
-	find . -type d -iname "gpu-viv-bin-*-*-*-*" -exec rm -Rf {} \;
-	rm *.bin
+	for file in `find . -type d -iname "gpu-viv-bin-*-*-*-*"`; do rm -Rvf $file; done
+	find . -type f -name "gpu-viv-bin-*-*-*-*.bin" -delete
 fi
