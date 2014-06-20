@@ -324,6 +324,8 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--version ${pkg_version} \
 		--architecture ${pkg_architecture} \
 		--provides "libGL.so.1.2" \
+		--provides "libGL.so.1" \
+		--provides "libGL_${viv_backend}" \
 		--depends "libXdamage.so.1" \
 		--depends "libXfixes.so.3" \
 		--depends "libXext.so.6" \
@@ -335,7 +337,8 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
 		-C "${sourcedir}" \
-		usr/lib/libGL.so.1.2
+		usr/lib/libGL.so.1.2 \
+		usr/lib/libGL.so.1
 
 	# TODO: devel package ... where to get headers? Mesa?
 
@@ -350,6 +353,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--depends "libGAL.so" \
 		--depends "libGAL_${viv_backend}" \
 		--depends "libGL.so.1.2" \
+		--depends "libGL_${viv_backend}" \
 		--depends "libXext.so.6" \
 		--depends "libX11.so.6" \
 		--depends "libdl.so.2" \
