@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # arguments accepted: sourcedir
 usage() {
@@ -35,14 +35,15 @@ pushd "$sourcedir"
 # build configuration
 XSERVER_GREATER_THAN_13=1
 BUILD_HARD_VFP=1
+export XSERVER_GREATER_THAN_13 BUILD_HARD_VFP
 
 # build
-./fastbuild.sh BUILD_HARD_VFP=1 XSERVER_GREATER_THAN_13=$XSERVER_GREATER_THAN_13
+./fastbuild.sh
 
 # install
 install -v -m755 -D EXA/src/vivante_drv.so "${destdir}/usr/lib/xorg/modules/drivers/vivante_drv.so"
 install -v -m755 -D FslExt/src/libfsl_x11_ext.so "${destdir}/usr/lib/xorg/modules/extensions/libfsl_x11_ext.so"
-# TODO: autohdmi
+install -v -m755 -D util/autohdmi/autohdmi "${destdir}/usr/bin/autohdmi"
 
 popd
 # END

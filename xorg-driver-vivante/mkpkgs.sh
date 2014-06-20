@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # pkg infos
 name=xf86-video-vivante-3.10.17
@@ -17,7 +17,7 @@ if [ ! -d "$srcdir" ]; then
         # apply patches
 	patch -d $srcdir -p1 < Werror.patch
 	patch -d $srcdir -p1 < libdrm.patch
-	patch -d $srcdir -p1 < xorg116.patch
+#	patch -d $srcdir -p1 < xorg116.patch
 fi
 
 # BUILDING STARTS HERE
@@ -37,7 +37,11 @@ fpm -s dir -t rpm \
 	-v $version \
 	--iteration $release \
 	-a $architecture \
-	-d "gpu-viv-bin-mx6q-3.10.17-x11 = 1.0.0" \
+	-d "libGAL.so" \
+	-d "libGAL_x11" \
+	-d "vivante_dri.so" \
+	-d "X11_ABI_VIDEODRV >= 14" \
+	-d "X11_ABI_VIDEODRV < 15" \
 	-C dest \
 	usr
 

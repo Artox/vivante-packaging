@@ -9,8 +9,8 @@
 ./unpack.sh gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin "$PWD"
 srcdir="gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp"
 
-# delete any existing RPMs
-rm -vf *.rpm
+# delete temporary files
+./clean.sh
 
 # for all backends, install, make packages and clean up
 # TODO: dfb, wl
