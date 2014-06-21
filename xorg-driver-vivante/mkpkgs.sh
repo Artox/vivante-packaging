@@ -40,8 +40,7 @@ fpm -s dir -t rpm \
 	-d "libGAL.so" \
 	-d "libGAL_x11" \
 	-d "vivante_dri.so" \
-	-d "X11_ABI_VIDEODRV >= 14" \
-	-d "X11_ABI_VIDEODRV < 15" \
+	-d "X11_ABI_VIDEODRV = 14.1" \
 	-C dest \
 	usr
 
