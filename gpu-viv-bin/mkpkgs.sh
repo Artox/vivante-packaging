@@ -273,7 +273,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		-C "${sourcedir}" \
 		usr/lib/libEGL.so \
-		usr/include/EGL
+		usr/include/EGL \
+		usr/include/KHR
 
 	# libGLESv1-devel
 	fpm -s dir -t rpm \
