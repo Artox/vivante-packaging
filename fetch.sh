@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MIRRORS="http://downloads.yoctoproject.org/mirror/sources/ http://www.freescale.com/lgfiles/NMG/MAD/YOCTO/ http://download.ossystems.com.br/bsp/freescale/source/"
+MIRRORS="http://www.freescale.com/lgfiles/NMG/MAD/YOCTO/ http://download.ossystems.com.br/bsp/freescale/source/ http://downloads.yoctoproject.org/mirror/sources/"
 
 fetch() {
 	name=$1
