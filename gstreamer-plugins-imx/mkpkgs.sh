@@ -18,8 +18,9 @@ fpm -s dir -t rpm \
 	--depends libgstbase-1.0.so.0 \
 	--depends libgstvideo-1.0.so.0 \
 	--depends libpthread.so.0 \
-	--depends libm.so.0 \
+	--depends libm.so.6 \
 	--depends libc.so.6 \
+	--depends libfslvpuwrap.so.3 \
 	-C dest \
 	usr/lib/libgstimxcommon.so.0.9.1 \
 	usr/lib/gstreamer-1.0/libgstimxv4l2src.so \

@@ -38,6 +38,7 @@ fpm -s dir -t rpm \
         --architecture $pkg_arch \
         --depends libvpu.so.4 \
         --depends libc.so.6 \
+	--provides libfslvpuwrap.so.3 \
         -C dest \
         usr/lib/libfslvpuwrap.so.3.0.0 \
 	usr/lib/libfslvpuwrap.so.3 \
