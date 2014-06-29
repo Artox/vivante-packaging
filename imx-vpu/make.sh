@@ -34,6 +34,7 @@ fpm -s dir -t rpm \
 	--depends libpthread.so.0 \
         --depends libgcc_s.so.1 \
         --depends libc.so.6 \
+	--depends firmware-imx-vpu \
 	--provides libvpu.so.4 \
         -C dest \
         usr/lib/libvpu.so.4
