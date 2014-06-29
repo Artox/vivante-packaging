@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -e
 
 # pkg settings
 pkg_name="gstreamer-plugins-imx-1.0"

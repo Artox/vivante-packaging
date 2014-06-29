@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MIRROR=http://downloads.yoctoproject.org/mirror/sources/
+MIRRORS="http://downloads.yoctoproject.org/mirror/sources/ http://www.freescale.com/lgfiles/NMG/MAD/YOCTO/ http://download.ossystems.com.br/bsp/freescale/source/"
 
 fetch() {
 	name=$1
@@ -20,14 +20,27 @@ fetch() {
 			# else t=1 >> file doesn't exist yet
 	fi
 
-	# download
-	wget $MIRROR/$name
-	t=$?
+	# try all mirrors
+	for mirror in $MIRRORS; do
 
-	# handle wget errors
-	if [ "x$t" != "x0" ]; then
-		echo "Download of $name failed. Cleaning up."
-		rm -fv $name
+		# download
+		wget $mirror/$name
+		t=$?
+
+		# handle wget return status
+		if [ "x$t" = "x0" ]; then
+			echo "$name downloaded."
+			break
+		else
+			echo "Download of $name failed. Cleaning up."
+			rm -fv $name
+			continue
+		fi
+
+	done
+
+	if  [ ! -f "$name" ]; then
+		echo "Download of $name failed."
 		return 1
 	fi
 
