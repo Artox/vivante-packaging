@@ -40,6 +40,7 @@ fi
 # pkg infos
 pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
 pkg_version="1"
+pkg_release="2" # increment with changes
 pkg_architecture="armv7hl"
 
 # pkg options
@@ -60,6 +61,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGAL-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		-d "vivante-drv = 4.6.9p13" \
 		--provides "libGAL.so" \
@@ -79,6 +81,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libVIVANTE-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libVIVANTE.so" \
 		--provides "libVIVANTE_${viv_backend}" \
@@ -93,6 +96,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libEGL-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libEGL.so.1" \
 		--provides "libEGL_${viv_backend}" \
@@ -109,6 +113,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLESv2-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLESv2.so.2" \
 		--provides "libGLESv2_${viv_backend}" \
@@ -131,6 +136,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLES_CL \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLES_CL.so" \
 		--depends "libGAL.so" \
@@ -146,6 +152,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLES_CM \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLES_CM.so" \
 		--depends "libGAL.so" \
@@ -161,6 +168,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLESv1_CL \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLESv1_CL.so.1" \
 		--depends "libGAL.so" \
@@ -176,6 +184,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLESv1_CM \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLESv1_CM.so.1" \
 		--depends "libGAL.so" \
@@ -194,6 +203,7 @@ ln -sfv libOpenVG_3D.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenVG_3D \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libOpenVG.so" \
 		--depends "librt.so.1" \
@@ -210,6 +220,7 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenVG_355 \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libOpenVG.so" \
 		--depends "libGAL.so" \
@@ -225,6 +236,7 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenCL \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libOpenCL.so" \
 		--depends "librt.so.1" \
@@ -238,6 +250,7 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libCLC \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libCLC.so" \
 		--depends "libGAL.so" \
@@ -257,6 +270,7 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLSLC \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGLSLC.so" \
 		--depends "libGAL.so" \
@@ -271,6 +285,7 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libVDK \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libVDK.so" \
 		--depends "libm.so.6" \
@@ -290,6 +305,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		-n ${pkg_name_prefix}-libGAL-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libGAL.so" \
 		-C "${sourcedir}" \
@@ -299,6 +315,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		-n ${pkg_name_prefix}-libEGL-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libEGL.so.1" \
 		-C "${sourcedir}" \
@@ -310,6 +327,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		-n ${pkg_name_prefix}-libGLESv1-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libGLESv1_CL.so.1" \
 		--depends "libGLESv1_CM.so.1" \
@@ -320,6 +338,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGLESv2-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libGLESv2.so.2" \
 		-C "${sourcedir}" \
@@ -329,6 +348,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenVG-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libOpenVG.so" \
 		-C "${sourcedir}" \
@@ -338,6 +358,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenCL-devel \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libOpenCL.so" \
 		-C "${sourcedir}" \
@@ -350,6 +371,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libGL-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "libGL.so.1.2" \
 		--provides "libGL.so.1" \
@@ -376,6 +398,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-dri-${viv_backend} \
 		--version ${pkg_version} \
+		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--provides "vivante_dri.so" \
 		--depends "libm.so.6" \
