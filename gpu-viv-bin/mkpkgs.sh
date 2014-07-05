@@ -69,6 +69,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "libdl.so.2" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGAL.so \
 		etc/udev/rules.d/vivante.rules
@@ -82,6 +84,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--provides "libVIVANTE_${viv_backend}" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libVIVANTE.so
 
@@ -96,6 +100,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "libGAL_${viv_backend}" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libEGL.so.1
 
@@ -112,6 +118,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "libEGL_${viv_backend}" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLESv2.so.2 \
 		usr/lib/libGLESv2.so
@@ -129,6 +137,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLES_CL.so
 
@@ -142,6 +152,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLES_CM.so
 
@@ -155,6 +167,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLESv1_CL.so.1 \
 		usr/lib/libGLESv1_CL.so
@@ -169,6 +182,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLESv1_CM.so.1 \
 		usr/lib/libGLESv1_CM.so
@@ -183,6 +198,8 @@ ln -sfv libOpenVG_3D.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--provides "libOpenVG.so" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libOpenVG_3D.so \
 		usr/lib/libOpenVG.so
@@ -198,6 +215,8 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--depends "libGAL.so" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libOpenVG_355.so \
 		usr/lib/libOpenVG.so
@@ -210,6 +229,8 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--provides "libOpenCL.so" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libOpenCL.so
 
@@ -227,6 +248,8 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--depends "librt.so.1" \
 		--depends "libgcc_s.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libCLC.so
 
@@ -239,6 +262,8 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--depends "libGAL.so" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGLSLC.so
 
@@ -253,6 +278,8 @@ ln -sfv libOpenVG_355.so "${sourcedir}/usr/lib/libOpenVG.so"
 		--depends "libdl.so.2" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libVDK.so
 fi
@@ -337,6 +364,8 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--depends "libm.so.6" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--post-install ldconfig.post \
+		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libGL.so.1.2 \
 		usr/lib/libGL.so.1
