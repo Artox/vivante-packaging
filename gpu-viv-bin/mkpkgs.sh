@@ -113,7 +113,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
 		-C "${sourcedir}" \
-		usr/lib/libGLESv2.so.2
+		usr/lib/libGLESv2.so.2 \
+		usr/lib/libGLESv2.so
 fi
 
 # backend-independent libraries
@@ -155,7 +156,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
 		-C "${sourcedir}" \
-		usr/lib/libGLESv1_CL.so.1
+		usr/lib/libGLESv1_CL.so.1 \
+		usr/lib/libGLESv1_CL.so
 
 	# libGLESv1_CM
 	fpm -s dir -t rpm \
@@ -168,7 +170,8 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
 		-C "${sourcedir}" \
-		usr/lib/libGLESv1_CM.so.1
+		usr/lib/libGLESv1_CM.so.1 \
+		usr/lib/libGLESv1_CM.so
 
 # symlink hack
 ln -sfv libOpenVG_3D.so "${sourcedir}/usr/lib/libOpenVG.so"
@@ -284,8 +287,6 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libGLESv1_CL.so.1" \
 		--depends "libGLESv1_CM.so.1" \
 		-C "${sourcedir}" \
-		usr/lib/libGLESv1_CL.so \
-		usr/lib/libGLESv1_CM.so \
 		usr/include/GLES
 
 	# libGLESv2-devel
@@ -295,7 +296,6 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--architecture ${pkg_architecture} \
 		--depends "libGLESv2.so.2" \
 		-C "${sourcedir}" \
-		usr/lib/libGLESv2.so \
 		usr/include/GLES2
 
 	# libOpenVG-devel
