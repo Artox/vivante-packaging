@@ -1,0 +1,70 @@
+diff -Naur a/usr/include/EGL/eglvivante.h b/usr/include/EGL/eglvivante.h
+--- a/usr/include/EGL/eglvivante.h	2014-07-12 16:12:58.721422593 +0200
++++ b/usr/include/EGL/eglvivante.h	2014-07-12 16:14:12.059318478 +0200
+@@ -46,7 +46,7 @@
+ typedef HWND            EGLNativeWindowType;
+ typedef HBITMAP         EGLNativePixmapType;
+ 
+-#elif defined(LINUX) && defined(EGL_API_DFB) && !defined(__APPLE__)
++#elif defined(__linux__) && defined(EGL_API_DFB) && !defined(__APPLE__)
+ #include <directfb.h>
+ typedef struct _DFBDisplay * EGLNativeDisplayType;
+ typedef IDirectFBWindow *  EGLNativeWindowType;
+@@ -82,7 +82,7 @@
+     EGLNativePixmapType Pixmap
+     );
+ 
+-#elif defined(LINUX) && defined(EGL_API_FB) && !defined(__APPLE__)
++#elif defined(__linux__) && defined(EGL_API_FB) && !defined(__APPLE__)
+ 
+ #if defined(WL_EGL_PLATFORM)
+ /* Wayland types for client apps. */
+@@ -217,7 +217,7 @@
+     typedef void*                               EGLNativeDisplayType;
+ #endif
+ 
+-#elif defined(LINUX) || defined(__APPLE__)
++#elif defined(__linux__) || defined(__APPLE__)
+ /* X11 platform. */
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
+diff -Naur a/usr/include/HAL/gc_hal_eglplatform.h b/usr/include/HAL/gc_hal_eglplatform.h
+--- a/usr/include/HAL/gc_hal_eglplatform.h	2014-07-12 16:12:58.666424169 +0200
++++ b/usr/include/HAL/gc_hal_eglplatform.h	2014-07-12 16:14:59.479956107 +0200
+@@ -35,13 +35,13 @@
+     RGBQUAD       bmiColors[2];
+ } BITFIELDINFO;
+ 
+-#elif defined(LINUX) && defined(EGL_API_DFB) && !defined(__APPLE__)
++#elif defined(__linux__) && defined(EGL_API_DFB) && !defined(__APPLE__)
+ #include <directfb.h>
+ typedef struct _DFBDisplay * HALNativeDisplayType;
+ typedef struct _DFBWindow *  HALNativeWindowType;
+ typedef struct _DFBPixmap *  HALNativePixmapType;
+ 
+-#elif defined(LINUX) && defined(EGL_API_FB) && !defined(__APPLE__)
++#elif defined(__linux__) && defined(EGL_API_FB) && !defined(__APPLE__)
+ 
+ #if defined(EGL_API_WL)
+ 
+@@ -150,7 +150,7 @@
+     typedef void*                               HALNativeDisplayType;
+ #endif
+ 
+-#elif defined(LINUX) || defined(__APPLE__)
++#elif defined(__linux__) || defined(__APPLE__)
+ /* X11 platform. */
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
+diff -Naur a/usr/include/HAL/gc_hal_vg.h b/usr/include/HAL/gc_hal_vg.h
+--- a/usr/include/HAL/gc_hal_vg.h	2014-07-12 16:12:58.670424055 +0200
++++ b/usr/include/HAL/gc_hal_vg.h	2014-07-12 16:15:29.285099089 +0200
+@@ -27,7 +27,7 @@
+ #if gcdENABLE_VG
+ 
+ /* Thread routine type. */
+-#if defined(LINUX)
++#if defined(__linux__)
+     typedef gctINT              gctTHREADFUNCRESULT;
+     typedef gctPOINTER          gctTHREADFUNCPARAMETER;
+ #   define  gctTHREADFUNCTYPE

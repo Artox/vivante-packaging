@@ -22,3 +22,6 @@ if [ ! -d "$unpackedname" ]; then
 	sh "$package" --auto-accept --force
 fi
 popd
+
+# apply patches
+patch -d "$destdir/$unpackedname" -p1 < correct-linux.platform-macro.patch
