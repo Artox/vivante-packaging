@@ -35,7 +35,8 @@ fi
 
 	# EGL
 if [ "x${BACKEND}" != "xnone" ]; then
-	install -v -m755 -D usr/lib/libEGL-${BACKEND}.so "${DESTDIR}/usr/lib/libEGL.so.1"
+	install -v -m755 -D usr/lib/libEGL-${BACKEND}.so "${DESTDIR}/usr/lib/libEGL.so.1.0.0"
+	ln -sv libEGL.so.1.0.0 "${DESTDIR}/usr/lib/libEGL.so.1"
 fi
 
 	# EGL devel
@@ -49,8 +50,10 @@ fi
 	install -v -m755 -D usr/lib/libGLES_CM.so "${DESTDIR}/usr/lib/libGLES_CM.so"
 
 	# OpenGL-ES 1
-	install -v -m755 -D usr/lib/libGLESv1_CL.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CL.so.1"
-	install -v -m755 -D usr/lib/libGLESv1_CM.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CM.so.1"
+	install -v -m755 -D usr/lib/libGLESv1_CL.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CL.so.1.1.0"
+	ln -sv libGLESv1_CL.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CL.so.1"
+	install -v -m755 -D usr/lib/libGLESv1_CM.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CM.so.1.1.0"
+	ln -sv libGLESv1_CM.so.1.1.0 "${DESTDIR}/usr/lib/libGLESv1_CM.so.1"
 
 	# OpenGL-ES 1 devel
 	ln -sv libGLESv1_CM.so.1 "${DESTDIR}/usr/lib/libGLESv1_CM.so"
@@ -60,7 +63,8 @@ fi
 
 	# OpenGL-ES 2.0
 if [ "x${BACKEND}" != "xnone" ]; then
-	install -v -m755 -D usr/lib/libGLESv2-${BACKEND}.so "${DESTDIR}/usr/lib/libGLESv2.so.2"
+	install -v -m755 -D usr/lib/libGLESv2-${BACKEND}.so "${DESTDIR}/usr/lib/libGLESv2.so.2.0.0"
+	ln -sv libGLESv2.so.2.0.0 "${DESTDIR}/usr/lib/libGLESv2.so.2"
 fi
 
 	# OpenGL-ES 2.0 devel

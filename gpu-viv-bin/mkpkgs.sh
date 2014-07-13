@@ -40,7 +40,7 @@ fi
 # pkg infos
 pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
 pkg_version="1"
-pkg_release="2" # increment with changes
+pkg_release="6" # increment with changes
 pkg_architecture="armv7hl"
 
 # pkg options
@@ -51,7 +51,7 @@ pkg_architecture="armv7hl"
 
 # hack for backend=none to make fpm happy
 if [ "x${viv_backend}" = "xnone" ]; then
-	touch `readlink -f "${sourcedir}/usr/lib/libEGL.so.1"`
+	touch `readlink -f "${sourcedir}/usr/lib/libEGL.so"`
 	touch `readlink -f "${sourcedir}/usr/lib/libGLESv2.so"`
 fi
 
@@ -98,6 +98,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
+		--provides "libEGL.so.1.0.0" \
 		--provides "libEGL.so.1" \
 		--provides "libEGL_${viv_backend}" \
 		--depends "libGAL.so" \
@@ -109,6 +110,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
+		usr/lib/libEGL.so.1.0.0 \
 		usr/lib/libEGL.so.1
 
 	# libGLESv2
@@ -117,6 +119,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
+		--provides "libGLESv2.so.2.0.0" \
 		--provides "libGLESv2.so.2" \
 		--provides "libGLESv2_${viv_backend}" \
 		--depends "libGAL.so" \
@@ -130,6 +133,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
+		usr/lib/libGLESv2.so.2.0.0 \
 		usr/lib/libGLESv2.so.2 \
 		usr/lib/libGLESv2.so
 fi
@@ -174,6 +178,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
+		--provides "libGLESv1_CL.so.1.1.0" \
 		--provides "libGLESv1_CL.so.1" \
 		--depends "libGAL.so" \
 		--depends "libEGL.so.1" \
@@ -181,6 +186,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libc.so.6" \
 		--post-install ldconfig.post \
 		-C "${sourcedir}" \
+		usr/lib/libGLESv1_CL.so.1.1.0 \
 		usr/lib/libGLESv1_CL.so.1 \
 		usr/lib/libGLESv1_CL.so
 
@@ -190,6 +196,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
+		--provides "libGLESv1_CM.so.1.1.0" \
 		--provides "libGLESv1_CM.so.1" \
 		--depends "libGAL.so" \
 		--depends "libEGL.so.1" \
@@ -200,6 +207,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
+		usr/lib/libGLESv1_CM.so.1.1.0 \
 		usr/lib/libGLESv1_CM.so.1 \
 		usr/lib/libGLESv1_CM.so
 
