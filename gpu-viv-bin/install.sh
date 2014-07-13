@@ -76,7 +76,9 @@ fi
 	install -v -m644 -D usr/lib/pkgconfig/glesv2.pc "${DESTDIR}/usr/lib/pkgconfig/glesv2.pc"
 
 	# OpenGL devel
+	install -v -m644 -D usr/include/GL/glext.h "${DESTDIR}/usr/include/GL/gl.h"
 	install -v -m644 -D usr/include/GL/glext.h "${DESTDIR}/usr/include/GL/glext.h"
+	install -v -m644 -D usr/include/GL/glxext.h "${DESTDIR}/usr/include/GL/glx.h"
 	install -v -m644 -D usr/include/GL/glxext.h "${DESTDIR}/usr/include/GL/glxext.h"
 	install -v -m644 -D usr/lib/pkgconfig/gl.pc "${DESTDIR}/usr/lib/pkgconfig/gl.pc"
 

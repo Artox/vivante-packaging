@@ -21,6 +21,9 @@ cp -v "$basedir/gl.pc" "$sourcedir/usr/lib/pkgconfig/"
 # OpenGL headers by Khronos Group
 install -v -m644 -D "$basedir/glext.h" "$sourcedir/usr/include/GL/glext.h"
 install -v -m644 -D "$basedir/glxext.h" "$sourcedir/usr/include/GL/glxext.h"
+# Mesa OpenGL headers
+install -v -m644 -D "$basedir/gl.h" "$sourcedir/usr/include/GL/gl.h"
+install -v -m644 -D "$basedir/glx.h" "$sourcedir/usr/include/GL/glx.h"
 
 # mark as done
 touch "$sourcedir/.patched"
