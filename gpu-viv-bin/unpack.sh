@@ -31,4 +31,4 @@ patch -d "$destdir/$unpackedname" -p1 < correct-linux.platform-macro.patch
 # add additional files
 
 # pkg-config
-cp -v egl.pc "$destdir/$unpackedname"/usr/lib/pkgconfig/
+#cp -v egl.pc "$destdir/$unpackedname"/usr/lib/pkgconfig/
