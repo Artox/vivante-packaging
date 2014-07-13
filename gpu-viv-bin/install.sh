@@ -77,6 +77,7 @@ fi
 
 	# OpenGL devel
 	install -v -m644 -D usr/include/GL/glext.h "${DESTDIR}/usr/include/GL/glext.h"
+	install -v -m644 -D usr/include/GL/glxext.h "${DESTDIR}/usr/include/GL/glxext.h"
 	install -v -m644 -D usr/lib/pkgconfig/gl.pc "${DESTDIR}/usr/lib/pkgconfig/gl.pc"
 
 	# OpenVG
