@@ -1,0 +1,7 @@
+Name: vg
+Description: Vivante OpenVG 1.1 library
+Requires.private:
+Version: 1
+Libs: -L/usr/lib -lOpenVG
+Libs.private: -lGAL -lrt -lc
+Cflags: -I/usr/include

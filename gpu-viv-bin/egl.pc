@@ -1,0 +1,7 @@
+Name: egl
+Description: Vivante EGL library
+Requires.private:
+Version: 1
+Libs: -L/usr/lib -lEGL
+Libs.private: -lGAL -lrt -lc
+Cflags: -I/usr/include

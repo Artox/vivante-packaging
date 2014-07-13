@@ -1,0 +1,7 @@
+Name: glesv1_cm
+Description: Vivante OpenGL ES 1.1 CM library
+Requires.private:
+Version: 1
+Libs: -L/usr/lib -lGLESv1_CM
+Libs.private: -lGAL -lEGL -lrt -lc
+Cflags: -I/usr/include

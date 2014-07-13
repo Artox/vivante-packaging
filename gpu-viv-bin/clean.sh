@@ -10,7 +10,8 @@ rm -f *.log
 rm -f *.rpm
 rm -Rf dest
 
+for file in `find . -type d -iname "gpu-viv-bin-*-*-*-*"`; do rm -Rvf $file; done
+
 if [ "x$realclean" = "xyes" ]; then
-	for file in `find . -type d -iname "gpu-viv-bin-*-*-*-*"`; do rm -Rvf $file; done
 	find . -type f -name "gpu-viv-bin-*-*-*-*.bin" -delete
 fi

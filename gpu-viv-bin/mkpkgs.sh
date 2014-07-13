@@ -40,7 +40,7 @@ fi
 # pkg infos
 pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
 pkg_version="1"
-pkg_release="6" # increment with changes
+pkg_release="7" # increment with changes
 pkg_architecture="armv7hl"
 
 # pkg options
@@ -332,10 +332,12 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libEGL.so.1" \
+		--provides "pkgconfig(egl)" \
 		-C "${sourcedir}" \
 		usr/lib/libEGL.so \
 		usr/include/EGL \
-		usr/include/KHR
+		usr/include/KHR \
+		usr/lib/pkgconfig/egl.pc
 
 	# libGLESv1-devel
 	fpm -s dir -t rpm \
@@ -345,8 +347,10 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--architecture ${pkg_architecture} \
 		--depends "libGLESv1_CL.so.1" \
 		--depends "libGLESv1_CM.so.1" \
+		--provides "pkgconfig(glesv1_cm)" \
 		-C "${sourcedir}" \
-		usr/include/GLES
+		usr/include/GLES \
+		usr/lib/pkgconfig/glesv1_cm.pc
 
 	# libGLESv2-devel
 	fpm -s dir -t rpm \
@@ -355,8 +359,10 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libGLESv2.so.2" \
+		--provides "pkgconfig(glesv2)" \
 		-C "${sourcedir}" \
-		usr/include/GLES2
+		usr/include/GLES2 \
+		usr/lib/pkgconfig/glesv2.pc
 
 	# libOpenVG-devel
 	fpm -s dir -t rpm \
@@ -365,8 +371,10 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
 		--depends "libOpenVG.so" \
+		--provides "pkgconfig(vg)" \
 		-C "${sourcedir}" \
-		usr/include/VG
+		usr/include/VG \
+		usr/lib/pkgconfig/vg.pc
 
 	# libOpenCL-devel
 	fpm -s dir -t rpm \

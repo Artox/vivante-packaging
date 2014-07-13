@@ -44,6 +44,7 @@ fi
 	install -v -m755 -d "${DESTDIR}/usr/include/EGL"
 	install -v -m644 usr/include/EGL/* "${DESTDIR}/usr/include/EGL/"
 	install -v -m644 -D usr/include/KHR/khrplatform.h "${DESTDIR}/usr/include/KHR/khrplatform.h"
+	install -v -m644 -D usr/lib/pkgconfig/egl.pc "${DESTDIR}/usr/lib/pkgconfig/egl.pc"
 
 	# OpenGLES
 	install -v -m755 -D usr/lib/libGLES_CL.so "${DESTDIR}/usr/lib/libGLES_CL.so"
@@ -60,6 +61,7 @@ fi
 	ln -sv libGLESv1_CL.so.1 "${DESTDIR}/usr/lib/libGLESv1_CL.so"
 	install -v -m755 -d "${DESTDIR}/usr/include/GLES"
 	install -v -m644 usr/include/GLES/* "${DESTDIR}/usr/include/GLES/"
+	install -v -m644 -D usr/lib/pkgconfig/glesv1_cm.pc "${DESTDIR}/usr/lib/pkgconfig/glesv1_cm.pc"
 
 	# OpenGL-ES 2.0
 if [ "x${BACKEND}" != "xnone" ]; then
@@ -71,6 +73,7 @@ fi
 	ln -sv libGLESv2.so.2 "${DESTDIR}/usr/lib/libGLESv2.so"
 	install -v -m755 -d "${DESTDIR}/usr/include/GLES2"
 	install -v -m644 usr/include/GLES2/* "${DESTDIR}/usr/include/GLES2/"
+	install -v -m644 -D usr/lib/pkgconfig/glesv2.pc "${DESTDIR}/usr/lib/pkgconfig/glesv2.pc"
 
 	# OpenVG
 	install -v -m755 -D usr/lib/libOpenVG_3D.so "${DESTDIR}/usr/lib/libOpenVG_3D.so"
@@ -80,6 +83,7 @@ fi
 	# OpenVG devel
 	install -v -m755 -d "${DESTDIR}/usr/include/VG"
 	install -v -m644 usr/include/VG/* "${DESTDIR}/usr/include/VG/"
+	install -v -m644 -D usr/lib/pkgconfig/vg.pc "${DESTDIR}/usr/lib/pkgconfig/vg.pc"
 
 	# OpenCL
 	install -v -m755 -D usr/lib/libOpenCL.so "${DESTDIR}/usr/lib/libOpenCL.so"
