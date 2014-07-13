@@ -104,6 +104,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "libGAL_${viv_backend}" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--replaces "Mesa-libEGL1" \
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
@@ -123,6 +124,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--depends "libEGL_${viv_backend}" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--replaces "Mesa-libGLESv2-2" \
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
@@ -191,6 +193,7 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--replaces "Mesa-libGLESv1_CM1" \
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
@@ -386,6 +389,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--depends "libm.so.6" \
 		--depends "librt.so.1" \
 		--depends "libc.so.6" \
+		--replaces "Mesa-libGL1" \
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \

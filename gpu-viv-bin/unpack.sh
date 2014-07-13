@@ -20,8 +20,15 @@ pushd "$destdir"
 unpackedname=`basename $package | sed -e "s;\.bin;;g"`
 if [ ! -d "$unpackedname" ]; then
 	sh "$package" --auto-accept --force
+else
+	exit 0
 fi
 popd
 
 # apply patches
 patch -d "$destdir/$unpackedname" -p1 < correct-linux.platform-macro.patch
+
+# add additional files
+
+# pkg-config
+cp -v egl.pc "$destdir/$unpackedname"/usr/lib/pkgconfig/
