@@ -40,7 +40,7 @@ fi
 # pkg infos
 pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
 pkg_version="1"
-pkg_release="7" # increment with changes
+pkg_release="8" # increment with changes
 pkg_architecture="armv7hl"
 
 # pkg options
@@ -364,6 +364,19 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		usr/include/GLES2 \
 		usr/lib/pkgconfig/glesv2.pc
 
+	# libGL-devel
+	# TODO: check if additional headers are wanted
+	fpm -s dir -t rpm \
+		--name ${pkg_name_prefix}-libGL-devel \
+		--version ${pkg_version} \
+		--iteration ${pkg_release} \
+		--architecture ${pkg_architecture} \
+		--depends "libGL.so.1.2" \
+		--provides "pkgconfig(gl)" \
+		-C "${sourcedir}" \
+		usr/include/GL \
+		usr/lib/pkgconfig/gl.pc
+
 	# libOpenVG-devel
 	fpm -s dir -t rpm \
 		--name ${pkg_name_prefix}-libOpenVG-devel \
@@ -398,6 +411,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--provides "libGL.so.1.2.0" \
 		--provides "libGL.so.1.2" \
 		--provides "libGL.so.1" \
+		--provides "libGL.so" \
 		--provides "libGL_${viv_backend}" \
 		--depends "libXdamage.so.1" \
 		--depends "libXfixes.so.3" \
@@ -416,9 +430,8 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		-C "${sourcedir}" \
 		usr/lib/libGL.so.1.2.0 \
 		usr/lib/libGL.so.1.2 \
-		usr/lib/libGL.so.1
-
-	# TODO: devel package ... where to get headers? Mesa?
+		usr/lib/libGL.so.1 \
+		usr/lib/libGL.so
 
 	# DRI
 	fpm -s dir -t rpm \

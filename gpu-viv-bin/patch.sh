@@ -16,6 +16,10 @@ cp -v "$basedir/egl.pc" "$sourcedir/usr/lib/pkgconfig/"
 cp -v "$basedir/glesv1_cm.pc" "$sourcedir/usr/lib/pkgconfig/"
 cp -v "$basedir/glesv2.pc" "$sourcedir/usr/lib/pkgconfig/"
 cp -v "$basedir/vg.pc" "$sourcedir/usr/lib/pkgconfig/"
+cp -v "$basedir/gl.pc" "$sourcedir/usr/lib/pkgconfig/"
+
+# OpenGL 1.2+ header by Khronos Group
+install -v -m644 -D "$basedir/glext.h" "$sourcedir/usr/include/GL/glext.h"
 
 # mark as done
 touch "$sourcedir/.patched"

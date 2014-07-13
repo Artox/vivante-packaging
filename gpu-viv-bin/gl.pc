@@ -1,0 +1,7 @@
+Name: gl
+Description: Vivante OpenGL library
+Requires.private:
+Version: 1
+Libs: -L/usr/lib -lGL
+Libs.private: -lXdamage -lXfixes -lXext -lX11 -lpthread -lGAL -lm -lrt -lc
+Cflags: -I${includedir}
