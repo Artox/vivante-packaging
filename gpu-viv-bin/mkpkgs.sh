@@ -379,6 +379,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
+		--provides "libGL.so.1.2.0" \
 		--provides "libGL.so.1.2" \
 		--provides "libGL.so.1" \
 		--provides "libGL_${viv_backend}" \
@@ -397,6 +398,7 @@ if [ "x${viv_backend}" = "xx11" ]; then
 		--post-install ldconfig.post \
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
+		usr/lib/libGL.so.1.2.0 \
 		usr/lib/libGL.so.1.2 \
 		usr/lib/libGL.so.1
 

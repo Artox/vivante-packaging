@@ -28,7 +28,8 @@ fi
 	install -v -m644 usr/include/HAL/* "${DESTDIR}/usr/include/HAL/"
 
 	# OpenGL
-	install -v -m755 -D usr/lib/libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1.2"
+	install -v -m755 -D usr/lib/libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1.2.0"
+	ln -sv libGL.so.1.2.0 "${DESTDIR}/usr/lib/libGL.so.1.2"
 	ln -sv libGL.so.1.2 "${DESTDIR}/usr/lib/libGL.so.1"
 	ln -sv libGL.so.1 "${DESTDIR}/usr/lib/libGL.so"
 
