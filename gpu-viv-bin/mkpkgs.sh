@@ -40,7 +40,7 @@ fi
 # pkg infos
 pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.0"
 pkg_version="1"
-pkg_release="8" # increment with changes
+pkg_release="9" # increment with changes
 pkg_architecture="armv7hl"
 
 # pkg options
