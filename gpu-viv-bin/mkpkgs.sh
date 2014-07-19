@@ -49,12 +49,6 @@ pkg_architecture="armv7hl"
 # approach: one package per library
 # some libraries are specific to graphics backend, some aren't
 
-# hack for backend=none to make fpm happy
-if [ "x${viv_backend}" = "xnone" ]; then
-	touch `readlink -f "${sourcedir}/usr/lib/libEGL.so"`
-	touch `readlink -f "${sourcedir}/usr/lib/libGLESv2.so"`
-fi
-
 # backend-dependent libraries
 if [ "x${viv_backend}" != "xnone" ]; then
 	# libGAL - Vivante HAL
@@ -100,6 +94,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--architecture ${pkg_architecture} \
 		--provides "libEGL.so.1.0.0" \
 		--provides "libEGL.so.1" \
+		--provides "libEGL.so" \
 		--provides "libEGL_${viv_backend}" \
 		--depends "libGAL.so" \
 		--depends "libGAL_${viv_backend}" \
@@ -111,7 +106,8 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--post-uninstall ldconfig.post \
 		-C "${sourcedir}" \
 		usr/lib/libEGL.so.1.0.0 \
-		usr/lib/libEGL.so.1
+		usr/lib/libEGL.so.1 \
+		usr/lib/libEGL.so
 
 	# libGLESv2
 	fpm -s dir -t rpm \
@@ -334,7 +330,6 @@ if [ "x${viv_backend}" = "xnone" ]; then
 		--depends "libEGL.so.1" \
 		--provides "pkgconfig(egl)" \
 		-C "${sourcedir}" \
-		usr/lib/libEGL.so \
 		usr/include/EGL \
 		usr/include/KHR \
 		usr/lib/pkgconfig/egl.pc
