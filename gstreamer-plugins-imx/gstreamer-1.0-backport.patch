@@ -1,0 +1,43 @@
+diff --git a/src/v4l2src/v4l2_buffer_pool.c b/src/v4l2src/v4l2_buffer_pool.c
+index 6de8d07..b055efa 100644
+--- a/src/v4l2src/v4l2_buffer_pool.c
++++ b/src/v4l2src/v4l2_buffer_pool.c
+@@ -31,7 +31,7 @@ GType gst_imx_v4l2_meta_api_get_type(void)
+ {
+ 	static volatile GType type;
+ 	static const gchar *tags[] = {
+-		GST_META_TAG_VIDEO_STR, GST_META_TAG_MEMORY_STR, NULL
++		"video", "memory", NULL
+ 	};
+ 
+ 	if (g_once_init_enter(&type))
+diff --git a/src/vpu/decoder/decoder.c b/src/vpu/decoder/decoder.c
+index 16506af..cdca8b9 100644
+--- a/src/vpu/decoder/decoder.c
++++ b/src/vpu/decoder/decoder.c
+@@ -254,7 +254,7 @@ void gst_imx_vpu_dec_class_init(GstImxVpuDecClass *klass)
+ 	base_class->stop              = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_stop);
+ 	base_class->set_format        = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_set_format);
+ 	base_class->handle_frame      = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_handle_frame);
+-	base_class->flush             = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_flush);
++	base_class->reset             = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_flush);
+ 	base_class->finish            = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_finish);
+ 	base_class->decide_allocation = GST_DEBUG_FUNCPTR(gst_imx_vpu_dec_decide_allocation);
+ 
+diff --git a/wscript b/wscript
+index 1d269cb..9a52d57 100644
+--- a/wscript
++++ b/wscript
+@@ -90,9 +90,9 @@ def configure(conf):
+ 
+ 	# test for GStreamer libraries
+ 
+-	conf.check_cfg(package = 'gstreamer-1.0 >= 1.2.0', uselib_store = 'GSTREAMER', args = '--cflags --libs', mandatory = 1)
+-	conf.check_cfg(package = 'gstreamer-base-1.0 >= 1.2.0', uselib_store = 'GSTREAMER_BASE', args = '--cflags --libs', mandatory = 1)
+-	conf.check_cfg(package = 'gstreamer-video-1.0 >= 1.2.0', uselib_store = 'GSTREAMER_VIDEO', args = '--cflags --libs', mandatory = 1)
++	conf.check_cfg(package = 'gstreamer-1.0 >= 1.0.0', uselib_store = 'GSTREAMER', args = '--cflags --libs', mandatory = 1)
++	conf.check_cfg(package = 'gstreamer-base-1.0 >= 1.0.0', uselib_store = 'GSTREAMER_BASE', args = '--cflags --libs', mandatory = 1)
++	conf.check_cfg(package = 'gstreamer-video-1.0 >= 1.0.0', uselib_store = 'GSTREAMER_VIDEO', args = '--cflags --libs', mandatory = 1)
+ 
+ 
+ 	# misc definitions & env vars

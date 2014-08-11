@@ -14,14 +14,13 @@ fi
 # clone repository
 git clone https://github.com/Freescale/gstreamer-imx.git
 
-# checkout last gstreamer-1.0 version
-# bd2731882ab1ff2f060c9fa3fa53bca536562a86
+# checkout fixed version
 pushd gstreamer-imx
-git checkout bd2731882ab1ff2f060c9fa3fa53bca536562a86
+git checkout 837109543112810d8f50cbadb882b714fab082b4
 popd
 
 basedir="$PWD"
 pushd gstreamer-imx
 # apply required patches
-patch -p1 < "$basedir/gstreamer-imx-1.2-tags.patch"
+patch -p1 < "$basedir/gstreamer-1.0-backport.patch"
 popd
