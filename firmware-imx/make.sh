@@ -21,11 +21,13 @@ popd
 # create packages
 pkg_name="firmware-imx"
 pkg_version="1"
+pkg_release="1" # increment with changes
 pkg_arch=armv7hl
 
 fpm -s dir -t rpm \
         --name $pkg_name-vpu \
         --version $pkg_version \
+        --iteration ${pkg_release} \
         --architecture $pkg_arch \
         -C dest \
         lib/firmware/vpu

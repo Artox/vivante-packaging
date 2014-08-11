@@ -25,11 +25,13 @@ popd
 
 pkg_name="libvpu"
 pkg_version="1"
+pkg_release="1" # increment with changes
 pkg_arch=armv7hl
 
 fpm -s dir -t rpm \
         --name $pkg_name \
         --version $pkg_version \
+        --iteration ${pkg_release} \
         --architecture $pkg_arch \
 	--depends libpthread.so.0 \
         --depends libgcc_s.so.1 \

@@ -30,11 +30,13 @@ popd
 
 pkg_name="libfslvpuwrap"
 pkg_version="1.0.46"
+pkg_release="1" # increment with changes
 pkg_arch=armv7hl
 
 fpm -s dir -t rpm \
         --name $pkg_name \
         --version $pkg_version \
+        --iteration ${pkg_release} \
         --architecture $pkg_arch \
         --depends libvpu.so.4 \
         --depends libc.so.6 \
