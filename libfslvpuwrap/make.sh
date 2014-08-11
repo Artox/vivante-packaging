@@ -11,6 +11,9 @@ fi
 
 basedir="$PWD"
 
+# patch source
+patch -d "$sourcedir" -p1 < "$basedir/0001-vpu_wrapper-fix-tests-of-return-value-from-IOGetVirt.patch"
+
 # build source
 pushd $sourcedir
 if [ ! -e autogen.done ]; then

@@ -11,6 +11,9 @@ fi
 basedir="$PWD"
 sourcedir="imx-vpu-3.10.17-1.0.0"
 
+# patch source
+patch -d "$sourcedir" -p1 < "$basedir/0001-IOGetVirtMem-returns-1-MAP_FAILED-on-failure.patch"
+
 # build source
 pushd $sourcedir
 make PLATFORM=IMX6Q
