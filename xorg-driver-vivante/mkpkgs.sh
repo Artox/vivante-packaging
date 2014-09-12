@@ -2,17 +2,17 @@
 
 # pkg infos
 name=xf86-video-vivante-3.10.17
-version=1.0.0
-release=0
+version=1.0.1
+release=1
 architecture=armv7hl
 
 # first fetch source if necessary
-../fetch.sh xserver-xorg-video-imx-viv-3.10.17-1.0.0.tar.gz 697d9a3fb244eb95eae4207bf2d9c321
+../fetch.sh xserver-xorg-video-imx-viv-3.10.17-1.0.1.tar.gz 974f33945dc96e876907541906297798
 
 # unpack source if necessary
-srcdir=xserver-xorg-video-imx-viv-3.10.17-1.0.0
+srcdir=xserver-xorg-video-imx-viv-3.10.17-1.0.1
 if [ ! -d "$srcdir" ]; then
-	tar -xf xserver-xorg-video-imx-viv-3.10.17-1.0.0.tar.gz
+	tar -xf xserver-xorg-video-imx-viv-3.10.17-1.0.1.tar.gz
 
         # apply patches
 	patch -d $srcdir -p1 < Werror.patch
