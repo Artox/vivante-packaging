@@ -2,12 +2,21 @@
 
 # This is the master script to turn vivante binaries into RPMs
 
-# first, fetch bianry package
-../fetch.sh gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin 8b9c4f6181acf46028e39508a970ecc1
+# define pkg name
+# name-version-cc.bin
+name=gpu-viv-bin-mx6q
+cc=hfp
+#version=3.10.17-1.0.0
+#chksum=8b9c4f6181acf46028e39508a970ecc1
+version=3.10.17-1.0.1
+chksum=d729db01e3eec3384e310cd3507761ce
+
+# first, fetch binary package
+../fetch.sh ${name}-${version}-${cc}.bin ${chksum}
 
 # second, unpack it
-./unpack.sh gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp.bin "$PWD"
-srcdir="gpu-viv-bin-mx6q-3.10.17-1.0.0-hfp"
+./unpack.sh ${name}-${version}-${cc}.bin "$PWD"
+srcdir="${name}-${version}-${cc}"
 
 # third, apply patches
 ./patch.sh "$PWD/$srcdir" "$PWD"
