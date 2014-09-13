@@ -38,9 +38,10 @@ fi
 # PACKAGING STARTS HERE
 
 # pkg infos
-pkg_name_prefix="gpu-viv-bin-mx6q-3.10.17-1.0.1"
+vivante_version="3.10.17-1.0.1"
+pkg_name_prefix="gpu-viv-bin-mx6q-${vivante_version}"
 pkg_version="1"
-pkg_release="1" # increment with changes
+pkg_release="2" # increment with changes
 pkg_architecture="armv7hl"
 
 # previous pkg infos (for update path)
@@ -61,7 +62,7 @@ if [ "x${viv_backend}" != "xnone" ]; then
 		--version ${pkg_version} \
 		--iteration ${pkg_release} \
 		--architecture ${pkg_architecture} \
-		-d "vivante-drv = 4.6.9p13" \
+		-d "vivante-drv = ${vivante_version}" \
 		--provides "libGAL.so" \
 		--provides "libGAL_${viv_backend}" \
 		--depends "libm.so.6" \
